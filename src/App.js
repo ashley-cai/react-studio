@@ -16,9 +16,9 @@ function App() {
   const [totalCart, setTotalCart] = useState(0)
 
 
-  const addToCart = (price) => {
+  const addToCart = (name, price) => {
     console.log('adding to cart:', price)
-    setCart(prev_cart => [...prev_cart, price]) 
+    setCart(prev_cart => [...prev_cart, [name, price]]) 
     setTotalCart(totalCart+price)
   }
 
@@ -28,8 +28,9 @@ function App() {
       return <p>Cart is empty</p>
     }
 
-    const jsxlist = cart.map((price, index) => {
-      return <p key={index} >$ {price}</p>
+    const jsxlist = cart.map((namePrice, index) => {
+      console.log(namePrice)
+      return <p key={index} > {namePrice[0]} $ {namePrice[1]}</p>
     })
 
     return jsxlist;
@@ -45,7 +46,7 @@ function App() {
 
       <div class="bakery-item-wrapper">
         {bakeryData.map((item, index) => ( // TODO: map bakeryData to BakeryItem components
-          <BakeryItem name={item.name} desc={item.description} price={item.price} img={item.image} onClick={(e) => addToCart(item.price)} ></BakeryItem>
+          <BakeryItem name={item.name} desc={item.description} price={item.price} img={item.image} onClick={(e) => addToCart(item.name, item.price)} ></BakeryItem>
         ))}
       </div>
 
