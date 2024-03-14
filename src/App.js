@@ -1,6 +1,7 @@
 import "./App.css";
 import { useState } from "react";
 import bakeryData from "./assets/bakery-data.json";
+import { BakeryItem } from "./components/BakeryItem";
 
 /* ####### DO NOT TOUCH -- this makes the image URLs work ####### */
 bakeryData.forEach((item) => {
@@ -11,18 +12,48 @@ bakeryData.forEach((item) => {
 function App() {
   // TODO: use useState to create a state variable to hold the state of the cart
   /* add your cart state code here */
+  const [cart, setCart] = useState([])
+  const [totalCart, setTotalCart] = useState(0)
+
+
+  const addToCart = (price) => {
+    console.log('adding to cart:', price)
+    setCart(prev_cart => [...prev_cart, price]) 
+    setTotalCart(totalCart+price)
+  }
+
+  const showCart = () => {
+    if (cart.length === 0) {
+      console.log('cart is empty')
+      return <p>Cart is empty</p>
+    }
+
+    const jsxlist = cart.map((price, index) => {
+      return <p key={index} >$ {price}</p>
+    })
+
+    return jsxlist;
+  }
+
+  const showTotalCart = () => {
+    return <p>TOTAL: $ {totalCart}</p>
+  }
 
   return (
     <div className="App">
       <h1>My Bakery</h1> {/* TODO: personalize your bakery (if you want) */}
 
-      {bakeryData.map((item, index) => ( // TODO: map bakeryData to BakeryItem components
-        <p>Bakery Item {index}</p> // replace with BakeryItem component
-      ))}
+      <div class="bakery-item-wrapper">
+        {bakeryData.map((item, index) => ( // TODO: map bakeryData to BakeryItem components
+          <BakeryItem name={item.name} desc={item.description} price={item.price} img={item.image} onClick={(e) => addToCart(item.price)} ></BakeryItem>
+        ))}
+      </div>
 
-      <div>
+      <div class="cart-wrapper">
         <h2>Cart</h2>
-        {/* TODO: render a list of items in the cart */}
+        {showCart()}
+        {showTotalCart()}
+
       </div>
     </div>
   );

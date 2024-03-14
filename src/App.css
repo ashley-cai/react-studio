@@ -4,6 +4,25 @@
 
 }
 
-.BakeryItem {
-  
+.bakery-item {
+  width: 20vw;
+  padding: 2em;
+}
+
+.bakery-image {
+    width: 20vw;
+}
+
+.bakery-item-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.bakery-item:hover {
+    background-color: lightblue;
+}
+
+.cart-wrapper {
+    padding: 2em;
 }
